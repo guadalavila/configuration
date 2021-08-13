@@ -52,14 +52,12 @@ class ConfigurationApp {
     }
 
     private async getStringValue(key: string): Promise<string> {
-        console.log({key});
         return new Promise((resolve) => {
             const remoteConfig = firebase.remoteConfig();
             remoteConfig.settings = {
                 minimumFetchIntervalMillis: 500,
                 fetchTimeoutMillis: 3600,
             };
-            console.log(remoteConfig.getAll());
             remoteConfig.fetchAndActivate().then(() => {
                 const value = remoteConfig.getValue(key).asString();
                 resolve(value);
